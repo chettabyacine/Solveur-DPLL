@@ -1,0 +1,91 @@
+                      Mini-projet 1 : solveur DPLL récursif
+                             fichier RENDU
+                       (à remplir obligatoirement)
+
+**Un mini-projet sans fichier RENDU rempli ne recevra pas de note.**
+
+Date limite: 28 octobre 2022, 23h59
+
+Identité
+--------
+Nombre de binôme: 16
+Nom, prénom 1: Chettab, Yacine
+Nom, prénom 2:  Ouikene, Mohamed Salah Eddine
+
+
+Questions sur votre code
+------------------------
+0. Avez-vous testé que `make dpll` s'exécute sans erreurs ou warnings,
+   et que ensuite `./dpll sudoku-4x4.cnf` donne la réponse attendue (voir
+   fichier README) ?
+
+Réponse : Oui, 'make dpll' s'execute sans erreurs ni warnings. L'éxécution avec l'exemple sudoku-4x4.cnf donne le resultat attendu.
+
+---
+
+1. Avez-vous utilisé la fonction `filter_map` (donné dans dpll.ml)
+   dans votre implémentation de `simplifie` ? 
+   - Si oui, expliquez en quelques phrases en français comment vous
+     l'avez utilisée.
+   - Si non, expliquez en quelques phrases en français comment
+     fonctionne votre implémentation de `simplifie`.
+
+Réponse : Non, on a utilise deux fonctions auxiliaire 
+        'clause_avec_l' : Supprime toutes les clauses qui contiennent le littéral l,
+                                     elle  utilise la fonction 'List.mem'                                   
+       'clause_avec_non_l' : Suprime le litereau "ltro" dans toutes les clauses,
+                                           elle utilise 2 fonctions : la fonction 'suprm' qui
+                                           suprime un literale dans une clause et la fonction
+                                           'List.mem'        
+
+---
+
+2. Pour l'implémentation de `unitaire`, quelles sont les fonctions
+   auxiliaires que vous avez utilisées et/ou écrites ? (Par une
+   fonction auxiliaire, on entend ici soit une fonction d'une
+   bibliothèque, par exemple des fonctions comme `List.length`,
+   `List.rev_append`, ou une fonction `aux_unitaire` que vous avez
+   écrite vous-mêmes.) Expliquez en quelques phrases en français
+   comment ces fonctions auxiliaires sont utilisées dans votre
+   implémentation de la fonction `unitaire`.
+
+Réponse : Dans la fonction unitaire, nous avons utilisé la fonction auxiliaire List.tl pour vérifier si la clause actuellement visitée contient un littéral unique (donc ce dernier ne possédé pas de tail) afin de le renvoyer en utilisant la fonction List.hd.
+
+---
+
+3. Pour l'implémentation de `pur`, quelles sont les fonctions
+   auxiliaires que vous avez utilisées et/ou écrites ?  Expliquez en
+   quelques phrases en français comment ces fonctions auxiliaires sont
+   utilisées dans votre implémentation de la fonction `pur`.
+
+
+Réponse : Nous avons écrit deux fonctions: isPur  qui elle-même utilise une fonction auxiliaire List.mem
+La fonction isPur prend un littéral l (int) et un ensemble de clauses (int list list), parcourt clauses et pour chaque clause, elle vérifie si (-l) y appartient (en utilisant List.mem)
+
+La fonction pur va parcourir les clauses, et pour chaque littéral de chaque clause, elle vérifie s'il est pur en appelant la fonction isPur
+
+
+---
+
+4. Donnez un exemple d'une formule pour laquelle les deux fonctions
+   `solveur_split` et `solveur_dpll_rec` ont un comportement
+   différent, et expliquez les différences entre ces deux fonctions.
+
+Réponse : Exemple= [ [2;4]; [1]; [-1;-2;3] ];;
+La différence est dans l'ordre de trouver les valeurs des interprétations, mais non pas le résultat lui-même.
+
+solveur_dpll_rec commence par 1 (unit), puis 2 (pur) puis 3 (split)
+mais solveur_split choisit les littéraux selon l'ordre linéaire (2, puis 1, puis 3)
+
+A la fin, la fonction print_modele fait le tri du résultat.
+---
+
+5. Avez-vous d'autres remarques sur votre rendu ? 
+
+Il est indispensable de passer un nom de fichier '.cnf' en paramètre à l’exécution de ./dpll pour ne pas lever une exception Invalid_argument à la fin du programme.a
+Les 6 tests dans le code lui-même sont commentés. Il faut donc enlever les commentaires pour les visualiser.
+
+
+---
+
+--fin du fichier RENDU--
